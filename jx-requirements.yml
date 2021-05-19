@@ -14,6 +14,8 @@ spec:
     gitName: github
     gitServer: https://github.com
     provider: kubernetes
+    # region must be one of the AWS available regions: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions
+    region: us-east-1
     registry: ghcr.io
   environments:
   - key: dev
@@ -29,5 +31,9 @@ spec:
       production: false
   repository: bucketrepo
   secretStorage: local
+  storage:
+  - name: logs
+  # other url formats such as s3://minio-1611088947.minio.svc.cluster.local/jx3-logs and s3://minio-1611088947.minio.svc.cluster.local were previously tried but didn't seem to work
+    url: "s3://jx3-logs?endpoint=minio-1611088947.minio.svc.cluster.local:9000&disableSSL=true&s3ForcePathStyle=true&region=ignored"
   vault: {}
   webhook: lighthouse

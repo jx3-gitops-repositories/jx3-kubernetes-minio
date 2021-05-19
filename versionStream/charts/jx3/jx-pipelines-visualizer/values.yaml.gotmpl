@@ -24,10 +24,15 @@ ingress:
       "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-s": {}
 {{- end }}
 
-{{- if and (eq .Values.jxRequirements.cluster.provider "eks") (hasKey .Values.jxRequirements.cluster "region") }}
+# AWS region needs to be set to use local minio log storage, so region must be set despite .Values.jxRequirements.cluster.provider being set to "kubernetes"
+# if the check for "eks" provider is needed here, adding another else if check for eq provider "kubernetes" and hasKey region should suffice
+{{- if hasKey .Values.jxRequirements.cluster "region" }}
 pod:
   env:
     AWS_REGION: {{ .Values.jxRequirements.cluster.region }}
+    # we have hard-coded the minio keys here because we could not figure out a way to have external secrets populated correctly
+    AWS_ACCESS_KEY_ID: "<minio accessKey here>"
+    AWS_SECRET_ACCESS_KEY: "<minio secretKey here>"
 {{- else if eq .Values.jxRequirements.cluster.provider "aks" }}
 {{- if and (hasKey .Values.jxRequirements.cluster "azure") (hasKey .Values.jxRequirements.cluster.azure "storage") (hasKey .Values.jxRequirements.cluster.azure.storage "storageAccountName")}}
 pod:
