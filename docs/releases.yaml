@@ -2,6 +2,8 @@
   path: helmfiles/jx/helmfile.yaml
 - namespace: kuberhealthy
   path: helmfiles/kuberhealthy/helmfile.yaml
+- namespace: minio
+  path: helmfiles/minio/helmfile.yaml
 - namespace: nginx
   path: helmfiles/nginx/helmfile.yaml
 - namespace: tekton-pipelines
