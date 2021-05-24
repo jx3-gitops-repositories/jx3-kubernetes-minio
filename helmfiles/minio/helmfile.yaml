@@ -3,7 +3,7 @@ environments:
   default:
     values:
     - jx-values.yaml
-namespace: kuberhealthy
+namespace: minio
 repositories:
 - name: minio
   url: https://operator.min.io/
