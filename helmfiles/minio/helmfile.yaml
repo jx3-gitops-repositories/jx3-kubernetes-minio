@@ -1,0 +1,16 @@
+filepath: ""
+environments:
+  default:
+    values:
+    - jx-values.yaml
+namespace: kuberhealthy
+repositories:
+- name: minio
+  url: https://operator.min.io/
+releases:
+- chart: minio/minio-operator
+  name: minio-operator
+- chart: ../../charts/minio-tenant
+  name: minio-tenant
+templates: {}
+renderedvalues: {}
